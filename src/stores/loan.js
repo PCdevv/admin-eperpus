@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import axios from 'axios'
+
 import { useAuthStore } from './auth'
+import { axiosClient } from '@/plugins/axiosClient'
 
 export const useLoanStore = defineStore('loan', () => {
   const { tokenType, token } = useAuthStore()
@@ -39,9 +40,7 @@ export const useLoanStore = defineStore('loan', () => {
     dataAnggota.telp = ''
     try {
       if (no_anggota.length > 0) {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/search-no-anggota/${no_anggota}`
-        )
+        const response = await axiosClient.get(`/search-no-anggota/${no_anggota}`)
 
         let items = response.data.data.dipinjam
         // dataAnggota.alamat = response.data.data.alamat
@@ -70,9 +69,7 @@ export const useLoanStore = defineStore('loan', () => {
     dataBuku.stok_tersedia = ''
     dataBuku.stok_total = ''
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/search-kode-buku/${kode_buku}`
-      )
+      const response = await axiosClient.get(`/search-kode-buku/${kode_buku}`)
       console.log(response.data.data.id_buku)
       state.dialogModal = true
       dataBuku.id_buku = response.data.data.id_buku
@@ -89,8 +86,8 @@ export const useLoanStore = defineStore('loan', () => {
   const peminjaman = async (id_buku, id_anggota) => {
     console.log({ id_buku, id_anggota })
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/pinjam`,
+      const response = await axiosClient.post(
+        `/pinjam`,
         {
           id_buku: id_buku,
           id_anggota: id_anggota
@@ -114,8 +111,8 @@ export const useLoanStore = defineStore('loan', () => {
   const pengembalian = async (id_history) => {
     console.log(id_history)
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/kembali`,
+      const response = await axiosClient.post(
+        `/kembali`,
         {
           id_history: id_history
         },

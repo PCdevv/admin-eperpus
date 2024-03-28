@@ -1,6 +1,6 @@
+import { axiosClient } from '@/plugins/axiosClient'
 import { defineStore } from 'pinia'
 import { ref, reactive } from 'vue'
-import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', () => {
   const tokenType = ref(localStorage.getItem('TOKEN_TYPE'))
@@ -25,10 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const loginAdmin = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/login/admin`,
-        payload
-      )
+      const response = await axiosClient.post(`/auth/login/admin`, payload)
       console.log()
       if (response.data.success) {
         setToken(response.data.data.access_token)
@@ -44,10 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
   const loginPustakawan = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth/login/pustakawan`,
-        payload
-      )
+      const response = await axiosClient.post(`/auth/login/pustakawan`, payload)
       if (response.data.success) {
         setToken(response.data.data.access_token)
         setTokenType(response.data.data.token_type)

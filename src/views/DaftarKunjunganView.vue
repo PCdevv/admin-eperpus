@@ -45,8 +45,8 @@
 <script setup>
 import bannerAuth from '@/assets/bannerAuth.png'
 import Logo from '@/assets/icons/Logo.svg'
+import { axiosClient } from '@/plugins/axiosClient'
 import { ref } from 'vue'
-import axios from 'axios'
 
 const windowHeight = window.innerHeight
 const message = ref('')
@@ -54,7 +54,7 @@ const no_anggota = ref('')
 
 const kunjungan = async () => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/kunjungan`, {
+    const response = await axiosClient.post(`/kunjungan`, {
       no_anggota: no_anggota.value
     })
     console.log(response)

@@ -235,10 +235,10 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref, reactive } from 'vue'
 import { useBookStore } from '@/stores/book'
-import { onMounted } from 'vue'
+// import { onMounted } from 'vue'
+import { axiosClient } from '@/plugins/axiosClient'
 
 // onMounted(() => {
 //   getDataCreate()
@@ -310,7 +310,7 @@ const tambahBuku = async () => {
   console.log([...formData.entries()])
 
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/buku`, formData, {
+    const response = await axiosClient.post(`/buku`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

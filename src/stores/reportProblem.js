@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import axios from 'axios'
+
 import { useAuthStore } from './auth'
+import { axiosClient } from '@/plugins/axiosClient'
 
 export const useReportProblemStore = defineStore('ReportProblem', () => {
   const { tokenType, token } = useAuthStore()
@@ -22,7 +23,7 @@ export const useReportProblemStore = defineStore('ReportProblem', () => {
   const loadItems = async ({ page, itemsPerPage, sortBy }) => {
     state.loading = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/laporan-masalah`, {
+      const response = await axiosClient.get(`/laporan-masalah`, {
         headers: {
           Authorization: `${tokenType} ${token}`
         }

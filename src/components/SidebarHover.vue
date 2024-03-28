@@ -155,7 +155,7 @@ if (ability == 'PUSTAKAWAN') {
       icon: dashboard
     },
     {
-      title: 'Pinjam Kembali',
+      title: 'Peminjaman',
       value: '/pinjam',
       icon: pinjamKembali
     },

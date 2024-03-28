@@ -117,10 +117,10 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref } from 'vue'
 import { useConfigurationStore } from '@/stores/configuration'
 import { useAuthStore } from '@/stores/auth'
+import { axiosClient } from '@/plugins/axiosClient'
 const { tokenType, token } = useAuthStore()
 
 const dialogModal = defineModel({
@@ -136,8 +136,8 @@ const validation = ref('')
 
 const tambahPenerbit = async () => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/konfigurasi/${state.filter.value}`,
+    const response = await axiosClient.post(
+      `/konfigurasi/${state.filter.value}`,
       {
         nama_penerbit: nama.value
       },
@@ -159,8 +159,8 @@ const tambahPenerbit = async () => {
 }
 const tambahPengarang = async () => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/konfigurasi/${state.filter.value}`,
+    const response = await axiosClient.post(
+      `/konfigurasi/${state.filter.value}`,
       {
         nama_pengarang: nama.value
       },
@@ -182,8 +182,8 @@ const tambahPengarang = async () => {
 }
 const tambahRak = async () => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/konfigurasi/${state.filter.value}`,
+    const response = await axiosClient.post(
+      `/konfigurasi/${state.filter.value}`,
       {
         nama_rak: nama.value,
         kode_rak: kode_rak.value
@@ -206,8 +206,8 @@ const tambahRak = async () => {
 }
 const tambahKategori = async () => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/konfigurasi/${state.filter.value}`,
+    const response = await axiosClient.post(
+      `/konfigurasi/${state.filter.value}`,
       {
         nama_kategori: nama.value
       },
@@ -231,8 +231,8 @@ const tambahKategori = async () => {
 }
 const tambahSubkategori = async () => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/konfigurasi/${state.filter.value}`,
+    const response = await axiosClient.post(
+      `/konfigurasi/${state.filter.value}`,
       {
         nama_subkategori: nama.value,
         id_kategori: kategori.value.value

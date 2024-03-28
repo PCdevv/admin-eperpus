@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 import { useAuthStore } from './auth'
-import axios from 'axios'
+import { axiosClient } from '@/plugins/axiosClient'
 
 export const useHistoryFineStore = defineStore('HistoryFine', () => {
   const { tokenType, token } = useAuthStore()
@@ -22,7 +22,7 @@ export const useHistoryFineStore = defineStore('HistoryFine', () => {
   const loadItems = async ({ page, itemsPerPage, sortBy }) => {
     state.loading = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/denda`, {
+      const response = await axiosClient.get(`/denda`, {
         headers: {
           Authorization: `${tokenType} ${token}`
         }

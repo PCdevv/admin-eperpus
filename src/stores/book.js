@@ -1,6 +1,7 @@
+import { axiosClient } from '@/plugins/axiosClient'
+
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import axios from 'axios'
 
 export const useBookStore = defineStore('Book', () => {
   const state = reactive({
@@ -47,9 +48,9 @@ export const useBookStore = defineStore('Book', () => {
   const loadItems = async ({ page, itemsPerPage, sortBy }) => {
     state.loading = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/bukus`)
+      const response = await axiosClient.get('bukus')
       let items = response.data.data
-      // console.log({ page, itemsPerPage, sortBy })
+      console.log(response)
 
       if (state.search) {
         const searchRegex = new RegExp(state.search.toLowerCase(), 'i')
@@ -74,7 +75,7 @@ export const useBookStore = defineStore('Book', () => {
 
   const deleteItem = async (id) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_BASE_URL}/buku/${id}`)
+      await axiosClient.delete(`/buku/${id}`)
       state.dialogConfirm = false
       state.toasterMessage = 'Data buku berhasil dihapus'
       state.toaster = true
@@ -89,7 +90,7 @@ export const useBookStore = defineStore('Book', () => {
     getDataCreate()
     state.dialogModalEdit = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/buku/${id}`)
+      const response = await axiosClient.get(`/buku/${id}`)
       state.dialogModal = true
       state.id_buku = response.data.data.id_buku
       payload.foto_cover = response.data.data.foto_cover
@@ -117,7 +118,7 @@ export const useBookStore = defineStore('Book', () => {
 
   const getDataCreate = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/buku-create`)
+      const response = await axiosClient.get(`/buku-create`)
       kategoriItems.value = response.data.data.kategori.map((k, index) => ({
         i: index,
         value: k.id_kategori,

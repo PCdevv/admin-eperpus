@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 import { useAuthStore } from './auth'
-import axios from 'axios'
+import { axiosClient } from '@/plugins/axiosClient'
 
 export const useHistoryBookStore = defineStore('HistoryBook', () => {
   const { tokenType, token } = useAuthStore()
@@ -22,7 +22,7 @@ export const useHistoryBookStore = defineStore('HistoryBook', () => {
   const loadItems = async ({ page, itemsPerPage, sortBy }) => {
     state.loading = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/history`, {
+      const response = await axiosClient.get(`/history`, {
         headers: {
           Authorization: `${tokenType} ${token}`
         }

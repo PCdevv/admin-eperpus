@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import axios from 'axios'
+
 import { useAuthStore } from './auth'
+import { axiosClient } from '@/plugins/axiosClient'
 
 export const useMemberStore = defineStore('Member', () => {
   const { tokenType, token } = useAuthStore()
@@ -32,7 +33,7 @@ export const useMemberStore = defineStore('Member', () => {
   const loadItems = async ({ page, itemsPerPage, sortBy }) => {
     state.loading = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/kelola/anggota`, {
+      const response = await axiosClient.get(`/kelola/anggota`, {
         headers: {
           Authorization: `${tokenType} ${token}`
         }
@@ -63,7 +64,7 @@ export const useMemberStore = defineStore('Member', () => {
     validation.value = {}
     state.dialogModalEdit = true
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/buku/${id}`)
+      const response = await axiosClient.get(`/buku/${id}`)
       state.dialogModal = true
       state.id_buku = response.data.data.id_buku
       payload.foto_cover = response.data.data.foto_cover
@@ -91,7 +92,7 @@ export const useMemberStore = defineStore('Member', () => {
 
   const deleteItem = async (id) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_BASE_URL}/kelola/anggota/${id}`, {
+      await axiosClient.delete(`/kelola/anggota/${id}`, {
         headers: {
           Authorization: `${tokenType} ${token}`
         }

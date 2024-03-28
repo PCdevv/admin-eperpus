@@ -252,7 +252,6 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref } from 'vue'
 import { useBookStore } from '@/stores/book'
 import { onMounted } from 'vue'
@@ -326,8 +325,8 @@ const editBuku = async () => {
 
   // Bug formData tdh terdetect
   // try {
-  //   const response = await axios.patch(
-  //     `${import.meta.env.VITE_BASE_URL}/buku/${state.id_buku}`,
+  //   const response = await axiosClient.patch(
+  //     `/buku/${state.id_buku}`,
   //     formData,
   //     {
   //       headers: {

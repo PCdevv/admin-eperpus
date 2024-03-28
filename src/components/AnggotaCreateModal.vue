@@ -94,10 +94,10 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref, reactive } from 'vue'
 import { useMemberStore } from '@/stores/member'
 import { useAuthStore } from '@/stores/auth'
+import { axiosClient } from '@/plugins/axiosClient'
 
 const validation = reactive({})
 const visible = ref(false)
@@ -113,7 +113,7 @@ const { tokenType, token } = useAuthStore()
 const tambahAnggota = async () => {
   console.log(payload)
   try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/kelola/anggota`, payload, {
+    const response = await axiosClient.post(`/kelola/anggota`, payload, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${tokenType} ${token}`

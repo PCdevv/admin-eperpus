@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import axios from 'axios'
+
 import { useAuthStore } from './auth'
+import { axiosClient } from '@/plugins/axiosClient'
 
 export const useConfigurationStore = defineStore('Configuration', () => {
   const { tokenType, token } = useAuthStore()
@@ -26,7 +27,7 @@ export const useConfigurationStore = defineStore('Configuration', () => {
     state.loading = true
     let items = []
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/konfigurasi`, {
+      const response = await axiosClient.get(`/konfigurasi`, {
         headers: {
           Authorization: `${tokenType} ${token}`
         }
@@ -81,7 +82,7 @@ export const useConfigurationStore = defineStore('Configuration', () => {
 
   const getDataKategori = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/buku-create`)
+      const response = await axiosClient.get(`/buku-create`)
       kategoriItems.value = response.data.data.kategori.map((k) => ({
         value: k.id_kategori,
         title: k.nama_kategori
