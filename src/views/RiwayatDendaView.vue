@@ -19,7 +19,7 @@ const headers = [
 
 <template>
   <div class="pl-24 pr-10 py-14">
-    <h1 class="text-4xl font-medium">Riwayat Peminjaman</h1>
+    <h1 class="text-4xl font-medium">Riwayat Denda</h1>
     <v-data-table-server
       v-model:items-per-page="state.itemsPerPage"
       :search="state.search"

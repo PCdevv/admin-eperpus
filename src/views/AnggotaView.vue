@@ -9,7 +9,7 @@ const { state, loadItems, deleteItem, resetModal } = useMemberStore()
 const headers = [
   { title: '#', align: 'start', key: 'id_anggota' },
   { title: 'Nama Lengkap', align: 'start', key: 'nama_lengkap' },
-  { title: 'Telp', align: 'start', key: 'no_telp' },
+  { title: 'No. Anggota', align: 'start', key: 'no_anggota' },
   { title: 'Email', align: 'start', key: 'email' },
   { title: 'Kategori Anggota', align: 'start', key: 'kategori_anggota' },
   { title: 'Password', align: 'start', key: 'password' },
